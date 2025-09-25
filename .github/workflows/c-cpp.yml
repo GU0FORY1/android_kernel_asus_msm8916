@@ -13,9 +13,32 @@ jobs:
 
     steps:
     - uses: actions/checkout@v4
+    
+    - name: 安装构建依赖
+      run: |
+        sudo apt update
+        sudo apt install -y build-essential gcc-arm-linux-gnueabi bison flex
+        
+    - name: 配置内核
+      run: make asus_msm8916_defconfig
+      
     - name: make
       run: make ARCH=arm CROSS_COMPILE=arm-linux-gnueabi- -j8
+      
     - name: make check
       run: make check
+      
+    - name: 设置mkbootimg.sh执行权限
+      run: chmod +x ./mkbootimg.sh
+      
     - name: mkbootimg
       run: ./mkbootimg.sh
+      
+    - name: 上传构建产物
+      uses: actions/upload-artifact@v3
+      if: success()
+      with:
+        name: kernel-build
+        path: |
+          arch/arm/boot/zImage
+          boot.img

@@ -13,8 +13,6 @@ jobs:
 
     steps:
     - uses: actions/checkout@v4
-    - name: configure
-      run: ./configure
     - name: make
       run: make ARCH=arm CROSS_COMPILE=arm-linux-gnueabi- -j8
     - name: make check

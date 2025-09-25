@@ -17,7 +17,7 @@ jobs:
     - name: 安装构建依赖
       run: |
         sudo apt update
-        sudo apt install -y build-essential gcc-arm-linux-gnueabi bison flex python2
+        sudo apt install -y build-essential gcc-arm-linux-gnueabi bison flex python
       
     - name: make
       run: make ARCH=arm CROSS_COMPILE=arm-linux-gnueabi- -j$(nproc)

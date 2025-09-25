@@ -18,12 +18,9 @@ jobs:
       run: |
         sudo apt update
         sudo apt install -y build-essential gcc-arm-linux-gnueabi bison flex
-        
-    - name: 配置内核
-      run: make asus_msm8916_defconfig
       
     - name: make
-      run: make ARCH=arm CROSS_COMPILE=arm-linux-gnueabi- -j8
+      run: make ARCH=arm CROSS_COMPILE=arm-linux-gnueabi- -j$(nproc)
       
     - name: make check
       run: make check
